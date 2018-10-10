@@ -1,0 +1,41 @@
+{
+  "name": "swagger-fake-server",
+  "version": "0.0.1",
+  "description": "The fake server using swagger schema",
+  "main": "lib/index.js",
+  "bin": {
+    "swagger-fake-server": "swagger-fake-server.js"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sue71/swagger-fake-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sue71/swagger-fake-server/issues"
+  },
+  "homepage": "https://github.com/sue71/swagger-fake-server#readme",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "express": "^4.16.3",
+    "faker": "^4.1.0",
+    "json-schema-faker": "github:sue71/json-schema-faker",
+    "swagger-parser": "^5.0.5"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/express": "^4.16.0",
+    "@types/node": "^10.11.5",
+    "@types/swagger-parser": "^4.0.2",
+    "@types/swagger-schema-official": "^2.0.10",
+    "typescript": "^3.1.1"
+  }
+}
