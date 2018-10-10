@@ -4,7 +4,7 @@
   "description": "The fake server using swagger schema",
   "main": "lib/index.js",
   "bin": {
-    "swagger-fake-server": "swagger-fake-server.js"
+    "swagger-fake-server": "bin/swagger-fake-server.js"
   },
   "directories": {
     "lib": "lib",
