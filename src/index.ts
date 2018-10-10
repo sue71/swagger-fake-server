@@ -39,6 +39,39 @@ export default async function run(jsonfile, options) {
   });
 }
 
+function snakeToCamel(str: string): string {
+  return str.replace(/_([a-z])/gi, function(_, letter) {
+    return letter.toUpperCase();
+  });
+}
+
+function map(object: Object | Array<any>, converter: (str: string) => string) {
+  if (Array.isArray(object)) {
+    return object.map(v => {
+      if (typeof v === "object") {
+        return map(v, converter);
+      }
+      return v;
+    });
+  }
+  if (typeof object === "object") {
+    return Object.keys(object).reduce((acc, key) => {
+      let item = object[key];
+      if (typeof item === "object") {
+        item = map(item, converter);
+      }
+      const camelKey = snakeToCamel(key);
+      return Object.assign({}, acc, {
+        [camelKey]: item
+      });
+    }, {});
+  }
+}
+
+function toCamel(object: Object) {
+  return map(object, snakeToCamel);
+}
+
 function setupEndpoints(spec: Spec) {
   for (const path in spec.paths) {
     const methods = spec.paths[path];
@@ -53,9 +86,8 @@ function setupMethods(filepath: string, methods: Path) {
     console.info(`Register endpoint: [${method.toUpperCase()}] ${formattedPath}`);
     app[method](formattedPath, async (_req, res) => {
       const schema = responses[200].schema;
-      console.log(jsf.generate(schema));
-      console.log(schema);
-      res.json(jsf.generate(schema));
+      const response = toCamel(jsf.generate(schema));
+      res.json(response);
     });
   }
 }
